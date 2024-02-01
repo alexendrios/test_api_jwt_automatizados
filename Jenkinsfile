@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         // Especificando o JDK embutido no Jenkins
-        jdk 'jdk8'
+        jdk 'jdk'
         // Configurando o Maven
         maven 'Maven'
     }
