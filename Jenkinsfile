@@ -2,25 +2,39 @@ pipeline {
     agent any
 
     tools {
-        maven "Maven"
-        jdk "jdk"
+        // Especificando o JDK embutido no Jenkins
+        jdk 'jdk8'
+        // Configurando o Maven
+        maven 'Maven'
     }
 
     stages {
-        stage('Initialize'){
-            steps{
-                echo "PATH = ${M2_HOME}/bin:${PATH}"
-                echo "M2_HOME = /opt/maven"
-            }
-        }
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                dir("/var/lib/jenkins/workspace/testes-automatizados-api-jwt/") {
-                sh 'mvn -B -DskipTests clean package'
-                }
-            
+                checkout scm
             }
         }
-     }
 
+        stage('Build and Test') {
+            steps {
+                script {
+                    // Configurando o Maven
+                    def mvnHome = tool 'Maven'
+                    env.PATH = "${mvnHome}/bin:${env.PATH}"
+
+                    // Compilando e testando o projeto Maven
+                    sh 'mvn clean install'
+                }
+            }
+        }
+
+        // Adicione mais estágios conforme necessário
+    }
+
+    post {
+        always {
+            // Limpeza ou ações pós-build
+            cleanWs()
+        }
+    }
 }
