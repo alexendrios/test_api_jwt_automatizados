@@ -22,11 +22,5 @@ pipeline {
             }
         }
      }
-    post {
-       always {
-          junit(
-        allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
-      )
-      }
-   } 
+
 }
