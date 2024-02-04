@@ -23,8 +23,8 @@ pipeline {
             steps {
                 script {
                     docker.image('maven:3.8.3-openjdk-11').inside {
-                        // Print network information using 'ip' command
-                        sh 'ip a'
+                        // Print available commands in the Docker image
+                        sh 'ls -l /usr/bin'
                         
                         // Add more debugging information
                         sh 'mvn clean test -X'
