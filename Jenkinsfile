@@ -28,7 +28,7 @@ pipeline {
                     
                     docker.image('maven:3.8.3-openjdk-11').withRun("--network skynet") {
                         // Install the netcat package
-                        sh 'apt-get update && apt-get install -y netcat'
+                        sh 'apt-get update && apt-get install -y netcat-openbsd'
 
                         // Check connectivity to a specific port
                         sh "nc -zv ${ipAddress} ${port}"
