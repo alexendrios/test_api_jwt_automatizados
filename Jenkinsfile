@@ -22,7 +22,7 @@ pipeline {
         stage('Check Docker Image') {
             steps {
                 script {
-                    def ipAddress = 'localhost'
+                    def ipAddress = '0.0.0.0'
                     def port = 4000
                     
                     docker.image('maven:3.8.3-openjdk-11').inside("--network=skynet") {
