@@ -18,23 +18,23 @@ pipeline {
                 }
             }
         }
-        stages {
-            stage('Check Docker Image') {
-                steps {
-                    script {
-                        def ipAddress = 'localhost'
-                        def port = 4000
-                        
-                        docker.image('maven:3.8.3-openjdk-11').inside {
-                            // Install the netcat package
-                            sh 'apt-get update && apt-get install -y netcat'
 
-                            // Check connectivity to a specific port
-                            sh "nc -zv ${ipAddress} ${port}"
-                        }
+        stage('Check Docker Image') {
+            steps {
+                script {
+                    def ipAddress = 'localhost'
+                    def port = 4000
+                    
+                    docker.image('maven:3.8.3-openjdk-11').inside {
+                        // Install the netcat package
+                        sh 'apt-get update && apt-get install -y netcat'
+
+                        // Check connectivity to a specific port
+                        sh "nc -zv ${ipAddress} ${port}"
                     }
                 }
             }
+        }
 
         stage('Run Tests') {
             steps {
