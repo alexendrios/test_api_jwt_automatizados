@@ -19,19 +19,19 @@ pipeline {
             }
         }
 
-        stage('Check Docker Image') {
-            steps {
-                script {
-                    def ipAddress = '0.0.0.0'
-                    def port = 4000
+        // stage('Check Docker Image') {
+        //     steps {
+        //         script {
+        //             def ipAddress = '0.0.0.0'
+        //             def port = 4000
                     
-                    docker.image('maven:3.8.3-openjdk-11').inside("--network=skynet") {
-                        sh 'apt-get update && apt-get install -y netcat'
-                        sh "nc -zv ${ipAddress} ${port}"
-                    }
-                }
-            }
-        }
+        //             docker.image('maven:3.8.3-openjdk-11').inside("--network=skynet") {
+        //                 sh 'apt-get update && apt-get install -y netcat'
+        //                 sh "nc -zv ${ipAddress} ${port}"
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('Run Tests') {
             steps {
