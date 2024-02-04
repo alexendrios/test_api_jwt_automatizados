@@ -7,22 +7,7 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/alexendrios/test_api_jwt_automatizados.git']]])
             }
         }
-
-        stage('Build and Run Container - App') {
-            steps {
-                script {
-                    // Build your Docker image if needed
-                    docker.build('config_api_api-jwt-app')
-
-                    // Run the Docker container
-                    docker.image('config_api_api-jwt-app').withRun('-p 4000:4000') { c ->
-                        // Additional commands to execute inside the running container
-                        sh 'npm install'
-                        sh 'npm start'
-                    }
-                }
-            }
-        }
+        
 
         stage('Build') {
             steps {
@@ -41,7 +26,7 @@ pipeline {
                     def ipAddress = 'localhost'
                     def port = 4000
                     
-                    docker.image('maven:3.8.3-openjdk-11').inside {
+                    docker.image('maven:3.8.3-openjdk-11').withRun("--network skynet") {
                         // Install the netcat package
                         sh 'apt-get update && apt-get install -y netcat'
 
