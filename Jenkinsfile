@@ -6,7 +6,7 @@ pipeline {
             steps {
                 script {
                     // Cria a rede Docker se ela não existir
-                    sh 'docker network ls | grep -q apijwt-network || docker network create apijwt-network'
+                    sh 'docker network ls | grep -q backend-api-jwt_apijwt-network'
                 }
             }
         }
@@ -34,7 +34,7 @@ pipeline {
                     def ipAddress = 'localhost'
                     def port = 4000
 
-                    docker.image('maven:3.8.3-openjdk-11').inside("--network=apijwt-network") {
+                    docker.image('maven:3.8.3-openjdk-11').inside("--network=backend-api-jwt_apijwt-network") {
                         // Instala o pacote netcat
                         sh 'apt-get update && apt-get install -y netcat'
 
@@ -48,7 +48,7 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    docker.image('maven:3.8.3-openjdk-11').inside("--network=apijwt-network") {
+                    docker.image('maven:3.8.3-openjdk-11').inside("--network=backend-api-jwt_apijwt-network") {
                         // Imprime os comandos disponíveis na imagem Docker
                         sh 'ls -l /usr/bin'
 
