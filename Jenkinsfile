@@ -37,8 +37,7 @@ pipeline {
             steps {
                 script {
                     docker.image('maven:3.8.3-openjdk-11').inside("--network=sapijwt-network") {
-                        sh 'ls -l /usr/bin'
-                        sh 'mvn clean test -X'
+                        sh 'mvn clean test'
                     }
                 }
             }
