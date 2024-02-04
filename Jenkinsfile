@@ -23,11 +23,14 @@ pipeline {
             steps {
                 script {
                     docker.image('maven:3.8.3-openjdk-11').inside {
-                        sh 'mvn clean test'
+                        // Print network information
+                        sh 'ifconfig'
+                        
+                        // Add more debugging information
+                        sh 'mvn clean test -X'
                     }
                 }
             }
-        }
 
         stage('Deploy') {
             steps {
