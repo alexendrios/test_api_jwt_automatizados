@@ -22,7 +22,7 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    docker.image('maven:3.8.3').inside {
+                    docker.image('maven:3.8.3-openjdk-11').inside {
                         sh 'mvn clean test'
                     }
                 }
@@ -32,7 +32,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo "Application ready for use"
-
+            }
         }
     }
+
 }
