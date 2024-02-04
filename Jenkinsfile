@@ -11,9 +11,9 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    docker.image('maven:3.8.3').inside {
+                    docker.image('maven:3.8.3-openjdk-11').inside {
                         sh 'mvn -version'
-                        sh 'mvn clean'
+                        sh 'javac --version'
                     }
                 }
             }
@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     docker.image('maven:3.8.3').inside {
-                        sh 'mvn test'
+                        sh 'mvn clean test'
                     }
                 }
             }
@@ -31,10 +31,8 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                script {
-                    echo "Application ready for use"
-                }
-            }
+                echo "Application ready for use"
+
         }
     }
 }
