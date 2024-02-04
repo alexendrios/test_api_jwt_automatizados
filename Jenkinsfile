@@ -11,7 +11,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    docker.image('maven:3.8.3-openjdk-11').inside("--network=skynet") {
+                    docker.image('maven:3.8.3-openjdk-11').inside("--network=apijwt-network") {
                         sh 'mvn -version'
                         sh 'javac --version'
                     }
@@ -36,7 +36,7 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    docker.image('maven:3.8.3-openjdk-11').inside("--network=skynet") {
+                    docker.image('maven:3.8.3-openjdk-11').inside("--network=sapijwt-network") {
                         sh 'ls -l /usr/bin'
                         sh 'mvn clean test -X'
                     }
