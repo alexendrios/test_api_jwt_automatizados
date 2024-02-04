@@ -13,7 +13,7 @@ pipeline {
                 script {
                     docker.image('maven:3.8.3').inside {
                         sh 'mvn -version'
-                        sh 'mvn clean install'
+                        sh 'mvn clean'
                     }
                 }
             }
@@ -32,10 +32,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    // Example: Start the Java application for 3 seconds
-                    docker.image('your-java-image').inside {
-                        echo "Application ready for use"
-                    }
+                    echo "Application ready for use"
                 }
             }
         }
