@@ -23,26 +23,28 @@ pipeline {
             steps {
                 script {
                     docker.image('maven:3.8.3-openjdk-11').inside {
-                            sh 'mvn clean test'
+                        sh 'mvn clean test'
                     }
                 }
             }
         }
 
-       stage('Deploy') {
-    steps {
-            echo "Application ready for use"
-        }
-        post {
-            always {
-                allure([
-                    includeProperties: false,
-                    jdk: '',
-                    properties: [],
-                    reportBuildPolicy: 'ALWAYS',
-                    results: [[path: 'target/allure-results']]
-                ])
+        stage('Deploy') {
+            steps {
+                echo "Application ready for use"
             }
+        }
+    }
+
+    post {
+        always {
+            allure([
+                includeProperties: false,
+                jdk: '',
+                properties: [],
+                reportBuildPolicy: 'ALWAYS',
+                results: [[path: 'target/allure-results']]
+            ])
         }
     }
 }
